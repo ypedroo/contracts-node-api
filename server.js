@@ -15,7 +15,7 @@ db.once('open', () => console.log('Db Connected'));
 
 app.use(express.json());
 
-const router = require('./routes/partsRouter');
-app.use('/contracts');
+const partsRouter = require('./routes/parts');
+app.use('/parts', partsRouter);
 
 app.listen(3000, () => console.log('hey mate'));
