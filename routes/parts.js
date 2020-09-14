@@ -34,6 +34,26 @@ router.post('/', async (req, res) => {
 });
 
 router.patch('/:id', getPart, async (req, res) => {
+    if (req.body.name != null) {
+        res.part.name = req.body.name;
+    }
+    if (req.body.email != null) {
+        res.part.email = req.body.email;
+    }
+    if (req.body.cpf != null) {
+        res.part.cpf = req.body.cpf;
+    }
+    if (req.body.phone != null) {
+        res.part.phone = req.body.phone;
+    }
+
+    try {
+        const updatedPart = await res.part.save();
+        res.json(updatedPart);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+
+    }
 });
 
 
