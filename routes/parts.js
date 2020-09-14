@@ -12,8 +12,8 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', (req, res) => {
-
+router.get('/:id', getPart, async (req, res) => {
+    res.json(res.part);
 });
 
 router.post('/', async (req, res) => {
@@ -33,13 +33,32 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.patch('/:id', (req, res) => {
-
+router.patch('/:id', getPart, async (req, res) => {
 });
 
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', getPart, async (req, res) => {
+    try {
+        await res.part.remove();
+        res.json({ message: "part deleted" })
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
 
+    }
 });
 
+async function getPart(req, res, next) {
+    let part;
+    try {
+        part = await Part.findById(req.params.id);
+        if (part == null) {
+            return res.status(404).json({ message: 'Cannot find part' });
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+
+    res.part = part;
+    next();
+}
 module.exports = router;
