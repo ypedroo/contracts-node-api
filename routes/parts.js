@@ -1,8 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const Part = require('../models/parts');
 
-router.get('/', (req, res) => {
-    res.send('Hey')
+router.get('/', async (req, res) => {
+    try {
+        const parts = await Part.find();
+        res.send(parts);
+    } 
+    catch (err){
+        res.status(500).json({message: err.message});
+    }
 });
 
 router.get('/:id', (req, res) => {
