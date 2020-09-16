@@ -30,12 +30,7 @@ describe('Part Integration Tests', () => {
     });
 
     it("should create new parts", done => {
-        partMock = new Part({
-            name: "",
-            email: "",
-            cpf: "",
-            phone: ""
-        });
+        partMock = new Part();
         chai.request(part)
             .post('/')
             .end((err, res) => {
