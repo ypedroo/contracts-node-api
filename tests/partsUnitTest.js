@@ -15,6 +15,20 @@ describe('Part Integration Tests', () => {
             });
         done();
     });
+
+    it("should get one part", done => {
+        partId = new Part({
+            id: "1",
+        });
+        chai.request(part)
+            .get('/:partId.Id')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('json');
+            });
+        done();
+    });
+
     it("should create new parts", done => {
         partMock = new Part({
             name: "",
@@ -27,6 +41,20 @@ describe('Part Integration Tests', () => {
             .end((err, res) => {
                 res.should.have.status(201);
                 res.body.should.be.a(partMock);
+            });
+        done();
+    });
+
+    it("should delete part", done => {
+        partId = new Part({
+            id: "1",
+        });
+
+        chai.request(part)
+            .delete('/:partId.Id')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('json');
             });
         done();
     });
