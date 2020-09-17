@@ -1,0 +1,29 @@
+{
+    "swagger": "2.0",
+    "info": {
+    "version": "3.0.0",
+    "title": "Contracts Project",
+    "description": "Contracts Application API",
+    "license": {
+    "name": "MIT",
+    "url": "https://opensource.org/licenses/MIT"
+    }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+    {
+    "name": "Parts",
+    "description": "API for parts"
+    }
+    ],
+    "schemes": [
+    "http"
+    ],
+    "consumes": [
+    "application/json"
+    ],
+    "produces": [
+    "application/json"
+    ]
+    }
