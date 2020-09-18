@@ -1,29 +1,97 @@
 {
     "swagger": "2.0",
     "info": {
-    "version": "3.0.0",
-    "title": "Contracts Project",
-    "description": "Contracts Application API",
-    "license": {
-    "name": "MIT",
-    "url": "https://opensource.org/licenses/MIT"
-    }
+        "version": "3.0.0",
+        "title": "Contracts Project",
+        "description": "Contracts Application API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
     },
     "host": "localhost:3000",
     "basePath": "/",
     "tags": [
-    {
-    "name": "Parts",
-    "description": "API for parts"
-    }
+        {
+            "name": "Part",
+            "description": "API for parts"
+        }
     ],
     "schemes": [
-    "http"
+        "http"
     ],
     "consumes": [
-    "application/json"
+        "application/json"
     ],
     "produces": [
-    "application/json"
-    ]
+        "application/json"
+    ],
+    "paths": {
+        "/parts": {
+            "get": {
+                "tags": [
+                    "Part"
+                ],
+                "summary": "Get all parts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Part"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Part"
+                ],
+                "description": "Create new part",
+                "parameters": [
+                    {
+                        "name": "part",
+                        "in": "body",
+                        "description": "Part that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Part"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "New part is created",
+                        "schema": {
+                            "$ref": "#/definitions/Part"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Part": {
+            "required": [],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "cpf": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                }
+            }
+        }
     }
+}
