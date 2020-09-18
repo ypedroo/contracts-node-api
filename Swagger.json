@@ -69,6 +69,69 @@
                     }
                 }
             }
+        },
+        "/parts/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of Part that we want to find",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Part"
+                ],
+                "summary": "Get part by id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Part"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Part with given ID",
+                "tags": [
+                    "Part"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Part is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Part"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update part with give ID",
+                "tags": [
+                    "Part"
+                ],
+                "parameters": [
+                    {
+                        "name": "part",
+                        "in": "body",
+                        "description": "Part with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Part"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Part is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Part"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
