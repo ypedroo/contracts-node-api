@@ -21,4 +21,4 @@ app.use(express.json());
 const partsRouter = require('./routes/parts');
 app.use('/parts', partsRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.listen(3000, () => console.log('hey mate'));
+app.listen(3000, () => console.log('hey mate')); 
