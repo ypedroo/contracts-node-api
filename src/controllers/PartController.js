@@ -18,27 +18,27 @@ class PartController {
             data: part
         });
     }
-    async getUser(req, res) {
+    async getParts(req, res) {
         const part = await this.partService.getPart();
         return res.json({
             data: part
         });
     }
-    async getUserById(req, res) {
+    async getPart(req, res) {
         const { id } = req.params;
         const part = await this.partService.getPartById(id);
         return res.json({
             data: part
         });
     }
-    async updateUser(req, res) {
+    async updatePart(req, res) {
         const { id } = req.params;
         const part = await this.partService.updatePart(id);
         return res.json({
             data: part
         });
     }
-    async getUser(req, res) {
+    async deletePart(req, res) {
         const { id } = req.params;
         const part = await this.partService.deletePart(id);
         return res.json({
