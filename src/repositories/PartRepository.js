@@ -1,6 +1,7 @@
+const { json } = require('express');
 const PartModel = require('../models/parts');
 
-class Partepository {
+class PartRepository {
     constructor() {
         this.part = PartModel;
         this.part.sync({ force: true });
@@ -16,17 +17,19 @@ class Partepository {
     async getPart() {
         return this.part.find();
     }
-    async getPart(id) {
+    async getPartById(id) {
         return this.part.findOne({ id });
     }
     async deletePart(id) {
         let part = this.part.findOne({ id });
-        return await part.deleteOne(part)
+        await part.deleteOne(part)
+        return json({ message: "part deleted" })
     }
     async updatePart(id) {
         let part = this.part.findOne({ id });
-        return await await part.save(part)
+        await await part.save(part)
+        return json({ message: "part updated" })
     }
 }
-module.exports = Partepository;
+module.exports = PartRepository;
 
