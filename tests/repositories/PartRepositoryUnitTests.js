@@ -17,7 +17,7 @@ describe("PartRepository", function () {
         updatedAt: faker.date.past()
     };
 
-    describe("create", function () {
+    describe("create", async () => {
         it("should add a new part to the db", async function () {
             const stub = sinon.stub(PartModel, "create").returns(stubValue);
             const partRepository = new PartRepository();
@@ -37,26 +37,35 @@ describe("PartRepository", function () {
         });
     });
 
-    describe("getPartById", function () {
-        it("should retrieve specfic part from db", async function () {
-            const stub = sinon.stub(PartModel, "findOne").returns(stubValue);
-            const partRepository = new PartRepository();
-            const user = await partRepository.getPartById(stub.id);
+    describe("getPartById", () => {
+            it("should retrieve specfic part from db", async () => {
+                const stubValue = {
+                    id: faker.random.uuid(),
+                    name: faker.name.findName(),
+                    email: faker.internet.email(),
+                    cpf: '00000000000',
+                    phone: faker.phone.phoneNumber(),
+                    createdAt: faker.date.past(),
+                    updatedAt: faker.date.past()
+                };
+                const stub = sinon.stub(PartModel, "getPartById").returns(stubValue);
+                const partRepository = new PartRepository();
+                const user = await partRepository.getPartById(stub.id);
 
-            expect(stub.calledOnce).to.be.true;
-            expect(user.id).to.equal(stubValue.id);
-            expect(user.name).to.equal(stubValue.name);
-            expect(user.email).to.equal(stubValue.email);
-            expect(user.cpf).to.equal(stubValue.cpf);
-            expect(user.phone).to.equal(stubValue.phone);
-            expect(user.createdAt).to.equal(stubValue.createdAt);
-            expect(user.updatedAt).to.equal(stubValue.updatedAt);
+                expect(stub.calledOnce).to.be.true;
+                expect(user.id).to.equal(stubValue.id);
+                expect(user.name).to.equal(stubValue.name);
+                expect(user.email).to.equal(stubValue.email);
+                expect(user.cpf).to.equal(stubValue.cpf);
+                expect(user.phone).to.equal(stubValue.phone);
+                expect(user.createdAt).to.equal(stubValue.createdAt);
+                expect(user.updatedAt).to.equal(stubValue.updatedAt);
+            });
         });
-    });
-    
-    describe("getPart", function () {
-        it("should retrieve an list of parts from db", async function () {
-            const stub = sinon.stub(PartModel, "find").returns(Array);
+
+    describe("getPart", () => {
+        it("should retrieve an list of parts from db", async () => {
+            const stub = sinon.stub(PartModel, "getPart").returns(Array);
             const partRepository = new PartRepository();
             const user = await partRepository.getPart();
 
@@ -65,8 +74,8 @@ describe("PartRepository", function () {
         });
     });
 
-    describe("updatePart", function () {
-        it("should update specfic part from db", async function () {
+    describe("updatePart", () => {
+        it("should update specfic part from db", async () => {
             const stub = sinon.stub(PartModel, "updatePart").returns(JSON);
             const partRepository = new PartRepository();
             const user = await partRepository.updatePart(stub.id);
@@ -76,8 +85,8 @@ describe("PartRepository", function () {
         });
     });
 
-    describe("deletePart", function () {
-        it("should delete specfic part from db", async function () {
+    describe("deletePart", () => {
+        it("should delete specfic part from db", async () => {
             const stub = sinon.stub(PartModel, "deletePart").returns(JSON);
             const partRepository = new PartRepository();
             const user = await partRepository.deletePart(stub.id);
