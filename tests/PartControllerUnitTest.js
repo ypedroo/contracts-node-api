@@ -136,4 +136,56 @@ describe("PartController", () => {
             mock.verify();
         });
     });
+
+    describe("updatePart", () => {
+        let req;
+        let res;
+        let partService;
+        beforeEach(() => {
+            req = { params: { id: faker.random.uuid() } };
+            res = { json: function () { } };
+            const userRepo = sinon.spy();
+            partService = new PartService(userRepo);
+        });
+
+        it("should update a part that matches the id param", async () => {
+            const mock = sinon.mock(res);
+            mock
+                .expects("json")
+                .once()
+                .withExactArgs({ data: String });
+
+            const stub = sinon.stub(partService, "updatePart").returns(String);
+            userController = new PartController(partService);
+            const user = await userController.updatePart(req, res);
+            expect(stub.calledOnce).to.be.true;
+            mock.verify();
+        });
+    });
+
+    describe("deletePart", () => {
+        let req;
+        let res;
+        let partService;
+        beforeEach(() => {
+            req = { params: { id: faker.random.uuid() } };
+            res = { json: function () { } };
+            const userRepo = sinon.spy();
+            partService = new PartService(userRepo);
+        });
+
+        it("should return a part that matches the id param", async () => {
+            const mock = sinon.mock(res);
+            mock
+                .expects("json")
+                .once()
+                .withExactArgs({ data: String });
+
+            const stub = sinon.stub(partService, "deletePart").returns(String);
+            userController = new PartController(partService);
+            const user = await userController.deletePart(req, res);
+            expect(stub.calledOnce).to.be.true;
+            mock.verify();
+        });
+    });
 });
