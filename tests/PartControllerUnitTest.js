@@ -110,4 +110,30 @@ describe("PartController", () => {
             mock.verify();
         });
     });
+
+    describe("getPart", () => {
+        let req;
+        let res;
+        let partService;
+        beforeEach(() => {
+            res = { json: function () { } };
+            const userRepo = sinon.spy();
+            partService = new PartService(userRepo);
+        });
+
+        it("should return a list of parts", async () => {
+            const stubValue = {};
+            const mock = sinon.mock(res);
+            mock
+                .expects("json")
+                .once()
+                .withExactArgs({ data: Object });
+
+            const stub = sinon.stub(partService, "getPart").returns(Object);
+            userController = new PartController(partService);
+            const user = await userController.getParts(req, res);
+            expect(stub.calledOnce).to.be.true;
+            mock.verify();
+        });
+    });
 });
