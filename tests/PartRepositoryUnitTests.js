@@ -2,8 +2,8 @@ const chai = require("chai");
 const sinon = require("sinon");
 const expect = chai.expect;
 const faker = require("faker");
-const PartModel = require('../models/parts');
-const PartRepository = require('../../src/repositories/PartRepository');
+const PartModel = require('../src/models/parts');
+const PartRepository = require('../src/repositories/PartRepository');
 const { json } = require("express");
 
 describe("PartRepository", function () {
@@ -37,18 +37,9 @@ describe("PartRepository", function () {
         });
     });
 
-    describe("getPartById", () => {
+    describe("getPartById", async () => {
             it("should retrieve specfic part from db", async () => {
-                const stubValue = {
-                    id: faker.random.uuid(),
-                    name: faker.name.findName(),
-                    email: faker.internet.email(),
-                    cpf: '00000000000',
-                    phone: faker.phone.phoneNumber(),
-                    createdAt: faker.date.past(),
-                    updatedAt: faker.date.past()
-                };
-                const stub = sinon.stub(PartModel, "getPartById").returns(stubValue);
+                const stub = sinon.stub(PartModel, "findOne").returns(stubValue);
                 const partRepository = new PartRepository();
                 const user = await partRepository.getPartById(stub.id);
 
@@ -63,9 +54,9 @@ describe("PartRepository", function () {
             });
         });
 
-    describe("getPart", () => {
+    describe("getPart", async () => {
         it("should retrieve an list of parts from db", async () => {
-            const stub = sinon.stub(PartModel, "getPart").returns(Array);
+            const stub = sinon.stub(PartModel, "find").returns(Array);
             const partRepository = new PartRepository();
             const user = await partRepository.getPart();
 
@@ -74,25 +65,25 @@ describe("PartRepository", function () {
         });
     });
 
-    describe("updatePart", () => {
+    describe("updatePart", async () => {
         it("should update specfic part from db", async () => {
-            const stub = sinon.stub(PartModel, "updatePart").returns(JSON);
+            const stub = sinon.stub(PartModel, "updateOne").returns(json);
             const partRepository = new PartRepository();
-            const user = await partRepository.updatePart(stub.id);
+            const user = await partRepository.updatePart(stubValue.id);
 
             expect(stub.calledOnce).to.be.true;
-            expect(user).to.equal(JSON);
+            expect(user).to.have.length.above(1);
         });
     });
 
-    describe("deletePart", () => {
+    describe("deletePart", async () => {
         it("should delete specfic part from db", async () => {
-            const stub = sinon.stub(PartModel, "deletePart").returns(JSON);
+            const stub = sinon.stub(PartModel, "deleteOne").returns(json);
             const partRepository = new PartRepository();
-            const user = await partRepository.deletePart(stub.id);
+            const user = await partRepository.deletePart(stubValue.id);
 
             expect(stub.calledOnce).to.be.true;
-            expect(user).to.equal(JSON);
+            expect(user).to.have.length.above(1);
         });
     });
 });

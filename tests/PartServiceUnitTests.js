@@ -2,11 +2,11 @@ const chai = require("chai");
 const sinon = require("sinon");
 const expect = chai.expect;
 const faker = require("faker");
-const PartService = require("../../src/services/PartService");
-const PartRepository = require("../../src/repositories/PartRepository");
+const PartService = require("../src/services/PartService");
+const PartRepository = require("../src/repositories/PartRepository");
 
 describe("PartService", () => {
-    describe("create", () => {
+    describe("create", async () => {
         it("should create a new part", async () => {
             const stubValue = {
                 id: faker.random.uuid(),
