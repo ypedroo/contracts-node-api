@@ -1,10 +1,8 @@
-const routes = require('express').Router();
 const PartController = require('../controllers/PartController');
-
-routes.get('/part', PartController.getParts);
-routes.post('/part', PartController.register);
-routes.get('/part/:id', PartController.getPart);
-routes.patch('/part/:id', PartController.updatePart);
-routes.delete('/part/:id', PartController.deletePart);
-
-module.exports = routes;
+module.exports = (server) => {
+    server.get('/part', PartController.getParts);
+    server.post('/part', PartController.register);
+    server.get('/part/:id', PartController.getPart);
+    server.patch('/part/:id', PartController.updatePart);
+    server.delete('/part/:id', PartController.deletePart);
+}
