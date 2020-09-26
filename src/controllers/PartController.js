@@ -19,7 +19,7 @@ class PartController {
                 data: part
             });
         } catch (err) {
-            return (err.message);
+            return res.status(500).json({ message: err.message });
         }
     }
     async getParts(req, res) {
@@ -29,29 +29,49 @@ class PartController {
                 data: part
             });
         } catch (err) {
-            return (err.message);
+            return res.status(500).json({ message: err.message });
         }
     }
     async getPart(req, res) {
-        const { id } = req.params;
-        const part = await this.partService.getPartById(id);
-        return res.json({
-            data: part
-        });
+        try {
+            const { id } = req.params;
+            const part = await this.partService.getPartById(id);
+            return res.json({
+                data: part
+            });
+        } catch (err) {
+            return res.status(500).json({ message: err.message });
+        }
     }
     async updatePart(req, res) {
-        const { id } = req.params;
-        const part = await this.partService.updatePart(id);
-        return res.json({
-            data: part
-        });
+        try {
+            const { id } = req.params;
+            let newPart = {
+                name: req.body.name,
+                cpf: req.body.cpf,
+                email: req.body.email,
+                phone: req.body.phone
+            };
+            const part = await this.partService.updatePart(id, newPart);
+            return res.json({
+                data: part
+            });
+        }
+        catch (err) {
+            return res.status(500).json({ message: err.message });
+        }
     };
     async deletePart(req, res) {
-        const { id } = req.params;
-        const part = await this.partService.deletePart(id);
-        return res.json({
-            data: part
-        });
+        try {
+            const { id } = req.params;
+            const part = await this.partService.deletePart(id);
+            return res.json({
+                data: part
+            });
+        }
+        catch (err) {
+            return res.status(500).json({ message: err.message });
+        }
     }
 }
 

@@ -20,8 +20,8 @@ class PartService {
         return this.partRepository.deletePart(id);
     }
     
-    async updatePart(id) {
-        return this.partRepository.updatePart(id);
+    async updatePart(id, part) {
+        return this.partRepository.updatePart(id, part);
     }
 }
 

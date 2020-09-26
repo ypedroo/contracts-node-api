@@ -4,7 +4,6 @@ const PartModel = require('../models/parts');
 class PartRepository {
     constructor() {
         this.part = PartModel;
-        //this.part.sync({ force: true });
     }
     async create(name, email, cpf, phone) {
         return this.part.create({
@@ -18,16 +17,16 @@ class PartRepository {
         return this.part.find();
     }
     async getPartById(id) {
-        return this.part.findOne({ id });
+        return this.part.findById(id);
     }
     async deletePart(id) {
-        let obj = this.part.findOne({ id });
+        let obj = this.part.findById(id);
         await this.part.deleteOne(obj)
         return json({ message: "part deleted" })
     }
-    async updatePart(id) {
-        let obj = this.part.findOne({ id });
-        await this.part.updateOne(obj)
+
+    async updatePart(id, part) {
+        await this.part.findOneAndUpdate(id, part)
         return json({ message: "part updated" })
     }
 }
