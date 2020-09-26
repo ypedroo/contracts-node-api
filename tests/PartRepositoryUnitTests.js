@@ -67,7 +67,7 @@ describe("PartRepository", function () {
 
     describe("updatePart", async () => {
         it("should update specfic part from db", async () => {
-            const stub = sinon.stub(PartModel, "updateOne").returns(json);
+            const stub = sinon.stub(PartModel, "findOneAndReplace").returns(json);
             const partRepository = new PartRepository();
             const user = await partRepository.updatePart(stubValue.id);
 
