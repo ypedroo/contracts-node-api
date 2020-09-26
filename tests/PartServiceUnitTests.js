@@ -31,6 +31,7 @@ describe("PartService", () => {
             expect(user.createdAt).to.equal(stubValue.createdAt);
             expect(user.updatedAt).to.equal(stubValue.updatedAt);
         });
+        done();
     });
 
     describe("getUser", () => {

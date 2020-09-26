@@ -4,7 +4,6 @@ const expect = chai.expect;
 const faker = require("faker");
 const PartController = require("../src/controllers/PartController");
 const PartService = require("../src/services/PartService");
-const PartRepository = require("../src/repositories/PartRepository");
 
 describe("PartController", () => {
     describe("register", () => {

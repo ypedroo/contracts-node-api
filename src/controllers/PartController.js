@@ -42,7 +42,9 @@ class PartController {
     async updatePart(req, res) {
         const { id } = req.params;
         const part = await this.partService.updatePart(id);
-        data: part
+        return res.json({
+            data: part
+        });
     };
     async deletePart(req, res) {
         const { id } = req.params;
