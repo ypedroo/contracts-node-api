@@ -7,7 +7,7 @@ const PartService = require("../src/services/PartService");
 
 describe("PartController", () => {
     describe("register", () => {
-        let status, json, res, userController, partService;
+        let status, json, res, partController, partService;
         beforeEach(() => {
             status = sinon.stub();
             json = sinon.spy();
@@ -64,9 +64,9 @@ describe("PartController", () => {
                 updatedAt: faker.date.past()
             };
             const stub = sinon.stub(partService, "create").returns(stubValue);
-            userController = new PartController(partService);
+            partController = new PartController(partService);
 
-            await userController.register(req, res);
+            await partController.register(req, res);
             expect(stub.calledOnce).to.be.true;
             expect(status.calledOnce).to.be.true;
             expect(status.args[0][0]).to.equal(201);
@@ -103,8 +103,8 @@ describe("PartController", () => {
                 .withExactArgs({ data: stubValue });
 
             const stub = sinon.stub(partService, "getPartById").returns(stubValue);
-            userController = new PartController(partService);
-            const user = await userController.getPart(req, res);
+            partController = new PartController(partService);
+            const user = await partController.getPart(req, res);
             expect(stub.calledOnce).to.be.true;
             mock.verify();
         });
@@ -129,8 +129,8 @@ describe("PartController", () => {
                 .withExactArgs({ data: Object });
 
             const stub = sinon.stub(partService, "getPart").returns(Object);
-            userController = new PartController(partService);
-            const user = await userController.getParts(req, res);
+            partController = new PartController(partService);
+            const user = await partController.getParts(req, res);
             expect(stub.calledOnce).to.be.true;
             mock.verify();
         });
@@ -142,6 +142,7 @@ describe("PartController", () => {
         let partService;
         beforeEach(() => {
             req = { params: { id: faker.random.uuid() } };
+            req.body = { name: "", cpf: "", email: "", phone: "" }
             res = { json: function () { } };
             const userRepo = sinon.spy();
             partService = new PartService(userRepo);
@@ -155,8 +156,8 @@ describe("PartController", () => {
                 .withExactArgs({ data: String });
 
             const stub = sinon.stub(partService, "updatePart").returns(String);
-            userController = new PartController(partService);
-            const user = await userController.updatePart(req, res);
+            partController = new PartController(partService);
+            const user = await partController.updatePart(req, res);
             expect(stub.calledOnce).to.be.true;
             mock.verify();
         });
@@ -181,8 +182,8 @@ describe("PartController", () => {
                 .withExactArgs({ data: String });
 
             const stub = sinon.stub(partService, "deletePart").returns(String);
-            userController = new PartController(partService);
-            const user = await userController.deletePart(req, res);
+            partController = new PartController(partService);
+            const user = await partController.deletePart(req, res);
             expect(stub.calledOnce).to.be.true;
             mock.verify();
         });
