@@ -26,7 +26,7 @@ class PartRepository {
     }
 
     async updatePart(id, part) {
-        await this.part.findOneAndUpdate(id, part)
+        await this.part.findOneAndReplace(id, part)
         return json({ message: "part updated" })
     }
 }
