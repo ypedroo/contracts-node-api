@@ -8,7 +8,8 @@ const swaggerUi = require('swagger-ui-express'),
 const app =  express();
 
 mongoose.connect(process.env.DB_CONNECTIONSTRING, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
 
