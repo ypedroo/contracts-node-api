@@ -104,7 +104,7 @@ describe("PartController", () => {
 
             const stub = sinon.stub(partService, "getPartById").returns(stubValue);
             partController = new PartController(partService);
-            const user = await partController.getPart(req, res);
+            await partController.getPart(req, res);
             expect(stub.calledOnce).to.be.true;
             mock.verify();
         });
